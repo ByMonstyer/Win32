@@ -1,0 +1,16 @@
+	//创建一个 进程 并等待进程结束
+	char c[] = "GetWifi.exe";
+	STARTUPINFOA p ;
+	PROCESS_INFORMATION info;
+	memset(&p, 0, sizeof(p));
+	memset(&info, 0, sizeof(info));
+	p.dwFlags = STARTF_FORCEONFEEDBACK;  //启动时 鼠标做出动作
+	DWORD exDoce;
+	bool b = CreateProcess(NULL, c, NULL, NULL, TRUE, NULL, NULL, NULL, &p, &info);
+	if (b)
+	{
+		CloseHandle(info.hThread);
+		WaitForSingleObject(info.hProcess, INFINITE);  //等待创建的进程结束
+		GetExitCodeProcess(info.hProcess, &exDoce);
+		CloseHandle(info.hProcess);
+	}
