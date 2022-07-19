@@ -1,0 +1,35 @@
+const int MAX_TIMES = 10;
+int g_nIndex = 0;
+DWORD g_dwTimes[MAX_TIMES];
+CRITICAL_SECTION g_cs;
+
+UINT CMFCApplication1Dlg::thread1(LPVOID p)
+{
+	while (g_nIndex <MAX_TIMES)
+	{
+		EnterCriticalSection(&g_cs);
+		g_dwTimes[g_nIndex] = GetTickCount();
+		g_nIndex++;
+		LeaveCriticalSection(&g_cs);
+	}
+	return 0;
+}
+
+UINT  CMFCApplication1Dlg::thread2(LPVOID p)
+{
+	while (g_nIndex < MAX_TIMES)
+	{
+		EnterCriticalSection(&g_cs);
+		g_nIndex++;
+		g_dwTimes[g_nIndex-1] = GetTickCount();
+		LeaveCriticalSection(&g_cs);
+	}
+	return 0;
+}
+
+InitializeCriticalSection(&g_cs);
+AfxBeginThread(thread1, this);
+AfxBeginThread(thread2, this);
+
+//当无法用互锁函数来解决同步问题时，你应该试用关键代码段
+//关键代码的主要缺点是无法用它们对多个进程中的各个线程进行同步
