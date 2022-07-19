@@ -1,0 +1,16 @@
+unsigned int g_i;
+
+UINT thread1(LPVOID p)
+{
+	InterlockedExchangeAdd(&g_i, 1);
+	return 0;
+}
+
+UINT thread2(LPVOID p)
+{
+	InterlockedExchangeAdd(&g_i, 1);
+	return 0;
+}
+
+AfxBeginThread(thread1, this);
+AfxBeginThread(thread2, this);
