@@ -31,5 +31,6 @@ InitializeCriticalSection(&g_cs);
 AfxBeginThread(thread1, this);
 AfxBeginThread(thread2, this);
 
+//用户对象 速度快
 //当无法用互锁函数来解决同步问题时，你应该试用关键代码段
 //关键代码的主要缺点是无法用它们对多个进程中的各个线程进行同步

@@ -1,0 +1,35 @@
+UINT CMFCApplication1Dlg::thread1(LPVOID p)
+{
+	while (g_nIndex <= 100)
+	{
+		WaitForSingleObject(h, 0xFFFFFFFF);
+		g_nIndex++;	
+		CString s;
+		s.Format(_T("1,%d\r\n"), g_nIndex);
+		TRACE(s);
+		SetEvent(h);
+	}
+	f = true;
+	return 0;
+}
+
+UINT  CMFCApplication1Dlg::thread2(LPVOID p)
+{
+	while (g_nIndex <= 100)
+	{	
+		WaitForSingleObject(h, 0xFFFFFFFF);
+		g_nIndex++;		
+		CString s;
+		s.Format(_T("2,%d\r\n"),g_nIndex);
+		TRACE(s);
+		SetEvent(h);
+	}
+	f = true;
+	return 0;
+}
+
+
+h =CreateEvent(NULL, FALSE, FALSE, NULL);
+AfxBeginThread(thread1, this);
+AfxBeginThread(thread2, this);
+PulseEvent(h);

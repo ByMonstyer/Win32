@@ -1,0 +1,34 @@
+UINT CMFCApplication1Dlg::thread1(LPVOID p)
+{
+	while (1)
+	{
+		WaitForSingleObject(h, 0xFFFFFFFF);
+		//code	
+		ReleaseMutex(h);
+	}
+	return 0;
+}
+
+UINT  CMFCApplication1Dlg::thread2(LPVOID p)
+{
+	while (1)
+	{
+		WaitForSingleObject(h, 0xFFFFFFFF);
+		//code
+		
+		ReleaseMutex(h);
+	}
+	return 0;
+}
+
+
+HANDLE h = CreateMutex(NULL, FALSE, NULL);
+AfxBeginThread(thread1, this);
+AfxBeginThread(thread2, this);
+
+dword d= WaitForSingleObject 返回值
+WAIT_OBJECT_O
+WAIT_TIMEOUT
+WAIT_FAILED
+
+//内核对象 方式 
