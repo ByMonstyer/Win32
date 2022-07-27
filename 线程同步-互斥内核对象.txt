@@ -32,3 +32,4 @@ WAIT_TIMEOUT
 WAIT_FAILED
 
 //内核对象 方式 
+//Mutexes 可以跨进程使用。Critical section 则只能够在同一个进程中使用。
