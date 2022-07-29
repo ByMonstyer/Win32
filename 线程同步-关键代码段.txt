@@ -31,7 +31,10 @@ InitializeCriticalSection(&g_cs);
 AfxBeginThread(thread1, this);
 AfxBeginThread(thread2, this);
 
-//用户对象 速度快
-//当无法用互锁函数来解决同步问题时，你应该试用关键代码段
-//关键代码的主要缺点是无法用它们对多个进程中的各个线程进行同步
-//Critical section 则只能够在同一个进程中使用。
+
+Critical section（临界区）用来实现“排他性占有”。适用范围是单一进程
+的各线程之间。它是：
+i 一个用户对象，不是一个核心对象。
+i 快速而有效率。
+i 不能够同时有一个以上的 critical section 被等待。
+i 无法侦测是否已被某个线程放弃

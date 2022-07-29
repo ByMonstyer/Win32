@@ -1,0 +1,21 @@
+UINT Work(LPVOID p)
+{
+	int i = 0;
+	while (true)
+	{
+		i++;
+		TRACE("%d\r\n", i);
+		Sleep(1000);
+
+	}
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedOk()
+{
+	CWinThread* a = AfxBeginThread(Work, this);
+	Sleep(5000);
+	SuspendThread(a->m_hThread);
+	Sleep(2000);
+	ResumeThread(a->m_hThread);
+}

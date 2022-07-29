@@ -31,5 +31,9 @@ WAIT_OBJECT_O
 WAIT_TIMEOUT
 WAIT_FAILED
 
-//内核对象 方式 
-//Mutexes 可以跨进程使用。Critical section 则只能够在同一个进程中使用。
+i 一个内核对象。
+i 如果拥有 mutex 的那个线程结束，则会产生一个 “abandoned” 错
+误信息。
+i 可以使用 Wait...() 等待一个 mutex。
+i 可以具名，因此可以被其他进程开启。
+i 只能被拥有它的那个线程释放（released）。
